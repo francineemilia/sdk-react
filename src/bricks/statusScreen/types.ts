@@ -10,7 +10,7 @@ export interface IStatusScreenBrickSettings extends IStatusScreenBrickCallbacks 
   onReady?: () => void;
   onError?: (param: IBrickError) => void;
   /**
-   * Non-optional. Object containing initialization options.
+   * Required. Object containing initialization options.
    *
    * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/status-screen-brick/default-rendering Status Screen Brick # Default rendering} documentation.
    */
@@ -25,21 +25,14 @@ export interface IStatusScreenBrickSettings extends IStatusScreenBrickCallbacks 
    * Optional. Language selection for the Brick, options are:
    * {pt, es, es-AR, es-MX, es-UY, es-PE, es-CL, es-CO, en}
    *
-   * @tutorial {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/additional-content/select-language General Customization # Select Language} documentation.
+   * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/additional-content/select-language General Customization # Select Language} documentation.
    */
   locale?: 'es-AR' | 'es-CL' | 'es-CO' | 'es-MX' | 'es-VE' | 'es-UY' | 'es-PE' | 'pt-BR' | 'en-US';
 }
 
-interface AdditionalData {
-  /** Non-optional. Challenge URL to redirect the buyer. */
-  externalResourceUrl: string;
-  /** Non-optional. Challenge request ID. */
-  creq: string;
-}
-
-interface IStatusScreenBrickInitialization {
+export interface IStatusScreenBrickInitialization {
   /**
-   * Non-optional. The ID of the payment generated via Mercado Pago.
+   * Required. The ID of the payment generated via Mercado Pago.
    *
    * @see {@link https://github.com/mercadopago/sdk-js/blob/main/API/bricks/status-screen.md#initialization Data initialization} documentation.
    */
@@ -52,9 +45,9 @@ interface IStatusScreenBrickInitialization {
   additionalInfo?: IStatusScreenBrickAdditionalInfo;
 }
 
-interface IStatusScreenBrickCallbacks extends IBrickCallbacks {}
+type IStatusScreenBrickCallbacks = IBrickCallbacks;
 
-interface IStatusScreenBrickCustomization {
+export interface IStatusScreenBrickCustomization {
   /**
    * Optional. Controls whether the brick will show the user a button to navigate back to the seller's website. The url must be in the same domain and subdomain that the Brick is loaded on, urls in another domain will be ignored.
    *
@@ -69,7 +62,7 @@ interface IStatusScreenBrickCustomization {
   visual?: TStatusScreenBrickVisual;
 }
 
-interface IStatusScreenBrickBackUrls {
+export interface IStatusScreenBrickBackUrls {
   /**
    * Optional. Defines the url that will be shown to the user in case of error in the payment.
    *
@@ -86,10 +79,12 @@ interface IStatusScreenBrickBackUrls {
 
 type TStatusScreenBrickVisual = IStatusScreenBrickBaseVisual & IStatusScreenBrickVisual;
 
-interface IStatusScreenBrickBaseVisual
-  extends IBrickVisual<IStatusScreenBrickCustomizableTexts, IStatusScreenBrickStyle> {}
+type IStatusScreenBrickBaseVisual = IBrickVisual<
+  IStatusScreenBrickCustomizableTexts,
+  IStatusScreenBrickStyle
+>;
 
-interface IStatusScreenBrickVisual {
+export interface IStatusScreenBrickVisual {
   /**
    * Optional. Shows the external_reference field from the Payments API.
    *
@@ -110,7 +105,7 @@ interface IStatusScreenBrickVisual {
   hideStatusDetails?: boolean;
 }
 
-interface IStatusScreenBrickCustomizableTexts {
+export interface IStatusScreenBrickCustomizableTexts {
   /**
    * Custom general error label text.
    *
@@ -131,9 +126,9 @@ interface IStatusScreenBrickCustomizableTexts {
   ctaReturnLabel?: string;
 }
 
-interface IStatusScreenBrickStyle extends IBrickStyle<IStatusScreenBrickCustomVariables> {}
+type IStatusScreenBrickStyle = IBrickStyle<IStatusScreenBrickCustomVariables>;
 
-interface IStatusScreenBrickCustomVariables extends IBrickCustomVariables {
+export interface IStatusScreenBrickCustomVariables extends IBrickCustomVariables {
   /**
    * Optional. Bricks custom variables.
    *
@@ -148,16 +143,16 @@ interface IStatusScreenBrickCustomVariables extends IBrickCustomVariables {
   fontSizeExtraExtraLarge?: string;
 }
 
-interface IStatusScreenBrickAdditionalInfo {
+export interface IStatusScreenBrickAdditionalInfo {
   /**
-   * Optional. The External Resource URL sent by MercadoPago to the iFrame Challenge.
+   * Required. The External Resource URL sent by MercadoPago to the iFrame Challenge.
    *
    * @see {@link  Additional Info} documentation.
    */
-  externalResourceUrl: string;
+  externalResourceURL: string;
 
   /**
-   * Optional. The Challenge Request Identificator sent by MercadoPago.
+   * Required. The Challenge Request Identificator sent by MercadoPago.
    *
    * @see {@link  Additional Info} documentation.
    */

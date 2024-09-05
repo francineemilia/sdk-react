@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { DEBOUNCE_TIME_RENDER } from '../util/constants';
 import {
   onBinChangeDefault,
+  onClickEditBillingDataDefault,
+  onClickEditShippingDataDefault,
   onErrorDefault,
   onReadyDefault,
+  onRenderNextStepDefault,
+  onRenderPreviousStepDefault,
   onSubmitDefault,
 } from '../util/initial';
 import { initBrick } from '../util/renderBrick';
 import { TPaymentType } from './type';
+import { UpdateValues } from '../util/types/common';
 
 /**
  * Payment Brick allows you to add several payment methods to a store and save card data for future purchases with just one Brick.
@@ -30,19 +35,23 @@ import { TPaymentType } from './type';
  * export default Example
  * ```
  *
- * @tutorial {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/payment-brick/introduction Payment Brick documentation} for more information.
+ * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/payment-brick/introduction Payment Brick documentation} for more information.
  */
-const BrickPayment = ({
+const Payment = ({
   onReady = onReadyDefault,
   onError = onErrorDefault,
   onSubmit = onSubmitDefault,
   onBinChange = onBinChangeDefault,
+  onClickEditShippingData = onClickEditShippingDataDefault,
+  onClickEditBillingData = onClickEditBillingDataDefault,
+  onRenderNextStep = onRenderNextStepDefault,
+  onRenderPreviousStep = onRenderPreviousStepDefault,
   initialization,
   customization,
   locale,
 }: TPaymentType) => {
   useEffect(() => {
-    // CardPayment uses a debounce to prevent unnecessary reRenders.
+    // Payment uses a debounce to prevent unnecessary reRenders.
     let timer: ReturnType<typeof setTimeout>;
     const PaymentBrickController = {
       settings: {
@@ -54,6 +63,10 @@ const BrickPayment = ({
           onError,
           onSubmit,
           onBinChange,
+          onClickEditShippingData,
+          onClickEditBillingData,
+          onRenderNextStep,
+          onRenderPreviousStep,
         },
       },
       name: 'payment',
@@ -73,4 +86,18 @@ const BrickPayment = ({
   return <div id="paymentBrick_container"></div>;
 };
 
-export default BrickPayment;
+const usePaymentBrick = () => {
+  const update = (updateValues: UpdateValues) => {
+    if (window.paymentBrickController) {
+      window.paymentBrickController.update(updateValues);
+    } else {
+      console.warn(
+        '[Checkout Bricks] Payment Brick is not initialized yet, please try again after a few seconds.',
+      );
+    }
+  };
+  return { update };
+};
+
+export default Payment;
+export { usePaymentBrick };

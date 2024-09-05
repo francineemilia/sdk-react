@@ -26,7 +26,7 @@ import { DEBOUNCE_TIME_RENDER } from '../util/constants';
 //  * export default Example
 //  * ```
 //  *
-//  * @tutorial {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/status-screen-brick/introduction Status Screen Brick documentation} for more information.
+//  * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/status-screen-brick/introduction Status Screen Brick documentation} for more information.
 //  */
 
 const StatusScreen = ({
@@ -37,7 +37,7 @@ const StatusScreen = ({
   locale,
 }: IStatusScreenBrickSettings) => {
   useEffect(() => {
-    // CardPayment uses a debounce to prevent unnecessary reRenders.
+    // Status Screen uses a debounce to prevent unnecessary reRenders.
     let timer: ReturnType<typeof setTimeout>;
     const StatusScreenBrickConfig = {
       settings: {

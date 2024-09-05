@@ -44,7 +44,7 @@ export interface IBrickCallbacks {
    *
    * @param error - A {@link IBrickError} objects
    *
-   * @tutorial {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/additional-content/possible-errors Possible errors} documentation.
+   * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/additional-content/possible-errors Possible errors} documentation.
    */
   onError?: (error: IBrickError) => void;
 }
@@ -53,7 +53,7 @@ export interface IBrickBinCallback {
   /**
    * Bin of the card entered by the user.
    *
-   * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/payment-brick/additional-customization/additional-data additional data customization} documentation.
+   * @see {@link https://www.mercadopago.com/developers/en/docs/checkout-bricks/payment-brick/advanced-features/additional-callbacks additional callbacks customization} documentation.
    */
   onBinChange?: (bin: string) => void;
 }
@@ -152,3 +152,10 @@ export interface IBrickCustomVariables {
   borderRadiusFull?: string;
   formPadding?: string;
 }
+
+/**
+ * Available update values.
+ */
+export type UpdateValues = {
+  amount: number;
+};
